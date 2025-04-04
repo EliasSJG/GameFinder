@@ -1,0 +1,7 @@
+@use "styles";
+@use "./styles/abstract/variables" as *;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $background-color;
+}

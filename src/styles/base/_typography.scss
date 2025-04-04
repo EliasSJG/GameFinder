@@ -1,0 +1,15 @@
+@use "../abstract/variables" as *;
+
+h1 {
+  font-family: $heading-main;
+  font-size: 10rem;
+  color: #fdc500;
+
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #000000;
+}
+
+p,
+a {
+  font-family: $text-main;
+}

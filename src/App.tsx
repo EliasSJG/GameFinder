@@ -1,3 +1,4 @@
+import GameList from "./components/gamesList/gamesList";
 import Header from "./components/header/header";
 import "./main.scss";
 import GeneralGames from "./pages/generalGames/generalGames";
@@ -9,6 +10,8 @@ function App() {
       <Header></Header>
       <Hero></Hero>
       <GeneralGames></GeneralGames>
+
+      <GameList></GameList>
     </>
   );
 }

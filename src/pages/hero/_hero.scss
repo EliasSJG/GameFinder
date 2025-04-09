@@ -11,11 +11,12 @@
 }
 .hero-image-controller {
   width: 100%;
+  z-index: 0;
 }
 
 .hero-controller-div {
-  position: fixed;
-  top: 10rem;
+  position: absolute;
+  z-index: -1;
 }
 
 .hero-image-rope {

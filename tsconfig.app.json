@@ -12,8 +12,8 @@
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "composite": true, // Must be true for composite projects
-    "emitDeclarationOnly": true, // Only emit declarations, not JavaScript
+    "composite": true,
+    "emitDeclarationOnly": true,
     "jsx": "react-jsx",
 
     /* Linting */

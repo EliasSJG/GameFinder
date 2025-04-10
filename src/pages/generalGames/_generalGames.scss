@@ -1,23 +1,79 @@
 .showcase-games-div {
-  height: 100vh;
-  margin-bottom: 20rem;
-  z-index: 4;
+  height: 130vh;
 }
 
 .games-holder {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-content: center;
-
   justify-items: center;
-  column-gap: 50%;
-  row-gap: 15%;
+  column-gap: 20%;
+  row-gap: 0%;
+}
 
-  div {
-    width: 300px;
-    height: 400px;
-    overflow: hidden;
+.card {
+  width: 400px;
+  height: 500px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 2.5rem;
+  transition: all 2s ease-in-out;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.card::after,
+.card::before {
+  content: "";
+  position: absolute;
+  height: 90%;
+  width: 85%;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  padding: 3px;
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent,
+    90%,
+    #fdc500
+  );
+  z-index: -1;
+  border-radius: 2.5rem;
+  animation: 3s spin linear infinite;
+}
+.card::before {
+  filter: blur(1.5rem);
+  opacity: 0;
+}
+@keyframes spin {
+  from {
+    --angle: 0deg;
   }
+  to {
+    --angle: 360deg;
+  }
+}
+
+.card:nth-child(1) {
+  transition-delay: 200ms;
+}
+.card:nth-child(2) {
+  transition-delay: 400ms;
+}
+
+.card:nth-child(3) {
+  transition-delay: 600ms;
+}
+
+.card:nth-child(4) {
+  transition-delay: 800ms;
 }
 
 .temp-images {
@@ -25,25 +81,23 @@
   height: 100%;
   object-fit: cover;
   border-radius: 2.5rem;
-  //add 3d effects
-  transition-duration: 300ms;
-  transition-property: transform, box-shadow;
-  transition-timing-function: ease-out;
-  transform: rotate3d(0);
 }
-.temp-images:hover {
-  transition-duration: 150ms;
-  box-shadow: 0 5px 20px 5px #00000044;
-}
+
 .hidden {
   opacity: 0;
   filter: blur(5px);
   transform: translateY(100%);
-  transition: 2s all;
+  transition: 1s all;
 }
 
 .show {
   opacity: 1;
   filter: blur(0);
   transform: translateY(0);
+}
+
+.tilt-card {
+  position: absolute;
+  width: 300px;
+  height: 400px;
 }

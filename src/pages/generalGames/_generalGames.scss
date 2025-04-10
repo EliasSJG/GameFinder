@@ -28,26 +28,45 @@
   initial-value: 0deg;
   inherits: false;
 }
+
 .card::after,
 .card::before {
   content: "";
   position: absolute;
-  height: 90%;
-  width: 85%;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  padding: 3px;
+  height: 82%;
+  width: 80%;
   background-image: conic-gradient(
     from var(--angle),
     transparent,
     90%,
     #fdc500
   );
+
+  // background-image: conic-gradient(
+  //   from var(--angle),
+  //   transparent,
+  //   90%,
+  //   #fdc500
+  // );
+
+  background-image: conic-gradient(
+    from var(--angle),
+    rgb(255, 0, 0),
+    rgb(255, 127, 0),
+    rgb(255, 255, 0),
+    rgb(0, 255, 0),
+    rgb(0, 255, 255),
+    rgb(0, 0, 255),
+    rgb(139, 0, 255),
+    rgb(255, 0, 255),
+    rgb(255, 0, 0)
+  );
+
   z-index: -1;
-  border-radius: 2.5rem;
+  border-radius: 3rem;
   animation: 3s spin linear infinite;
 }
+
 .card::before {
   filter: blur(1.5rem);
   opacity: 0;

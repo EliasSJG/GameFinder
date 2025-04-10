@@ -17,7 +17,7 @@ export default function Hero() {
     };
   }, []);
   const maxScroll = 141;
-  const topValue = Math.min(6.5 + scrollPosition / 15, maxScroll);
+  const topValue = Math.min(0 + scrollPosition / 15, maxScroll);
 
   return (
     <div className="hero">

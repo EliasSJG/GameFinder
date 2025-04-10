@@ -1,28 +1,90 @@
-import "./_generalGames.scss";
+// import "./_generalGames.scss";
+// import TLOUTEMP from "../../assets/temp/TLOUTEMP.png";
+// import RDR2TEMP from "../../assets/temp/RDR2TEMP.jpg";
+// import GOWTEMP from "../../assets/temp/GOWTEMP.jpg";
+// import GTA5TEMP from "../../assets/temp/GTA5TEMP.jpg";
+// import { useEffect, useRef } from "react";
+// import { Tilt } from "react-tilt";
 
+// export default function GeneralGames() {
+//   const imagesPop = useRef<(HTMLDivElement | null)[]>([]);
+
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       (entries, obs) => {
+//         entries.forEach((entry) => {
+//           if (entry.isIntersecting) {
+//             entry.target.classList.add("show");
+//             obs.unobserve(entry.target);
+//           }
+//         });
+//       },
+//       { threshold: 0.1 }
+//     );
+
+//     imagesPop.current.forEach((card) => {
+//       if (card) observer.observe(card);
+//     });
+
+//     return () => {
+//       observer.disconnect();
+//     };
+//   }, []);
+
+//   const images = [TLOUTEMP, RDR2TEMP, GOWTEMP, GTA5TEMP];
+
+//   return (
+//     <div className="showcase-games-div">
+//       <h1>Games For You!</h1>
+//       <div className="games-holder">
+//         {images.map((imgSrc, index) => (
+//           <div
+//             key={index}
+//             className="card hidden"
+//             ref={(el: HTMLDivElement | null) => {
+//               imagesPop.current[index] = el;
+//             }}
+//           >
+//             <Tilt className="tilt-card border">
+//               <a href="">
+//                 <img className="temp-images" src={imgSrc} alt="" />
+//               </a>
+//             </Tilt>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+import "./_generalGames.scss";
 import TLOUTEMP from "../../assets/temp/TLOUTEMP.png";
 import RDR2TEMP from "../../assets/temp/RDR2TEMP.jpg";
 import GOWTEMP from "../../assets/temp/GOWTEMP.jpg";
 import GTA5TEMP from "../../assets/temp/GTA5TEMP.jpg";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Tilt } from "react-tilt";
 
 export default function GeneralGames() {
+  const [isVisible, setIsVisible] = useState(false);
   const imagesPop = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        console.log(entry.target, entry.isIntersecting);
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          obs.unobserve(entry.target);
-        }
-      });
-    });
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            obs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    imagesPop.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
+    if (imagesPop.current[0]) {
+      observer.observe(imagesPop.current[0]);
+    }
 
     return () => {
       observer.disconnect();
@@ -32,20 +94,22 @@ export default function GeneralGames() {
   const images = [TLOUTEMP, RDR2TEMP, GOWTEMP, GTA5TEMP];
 
   return (
-    <div className="showcase-games-div ">
-      <h1>General Games Here</h1>
+    <div className="showcase-games-div">
+      <h1>Games For You!</h1>
       <div className="games-holder">
         {images.map((imgSrc, index) => (
           <div
-            className="card hidden"
             key={index}
+            className={`card ${isVisible ? "show" : "hidden"}`}
             ref={(el) => {
               imagesPop.current[index] = el;
             }}
           >
-            <a href="">
-              <img className="temp-images" src={imgSrc} alt="" />
-            </a>
+            <Tilt className="tilt-card border">
+              <a href="">
+                <img className="temp-images" src={imgSrc} alt="" />
+              </a>
+            </Tilt>
           </div>
         ))}
       </div>

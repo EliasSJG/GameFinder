@@ -5,3 +5,15 @@ body {
   padding: 0;
   background-color: $background-color;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #27292a;
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #fdc500;
+  border-radius: 1rem;
+  border: 1px solid #27292a;
+}

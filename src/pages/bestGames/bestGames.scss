@@ -1,3 +1,13 @@
-.some {
-  height: 100vh;
+.big-sliderImage {
+  width: 100%;
+}
+
+.big-image-holder {
+  position: relative;
+}
+.heading-tag {
+  position: absolute;
+  top: 0;
+  display: flex;
+  left: 20%;
 }

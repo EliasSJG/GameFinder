@@ -4,13 +4,16 @@
 
 .games-holder {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, 200px);
   align-content: center;
   justify-items: center;
-  column-gap: 20%;
-  row-gap: 0%;
+  column-gap: 15%;
+  margin-left: 10%;
+  align-items: end;
 }
-
+h1 {
+  text-align: center;
+}
 .card {
   width: 400px;
   height: 500px;
@@ -85,14 +88,17 @@
 }
 .card:nth-child(2) {
   transition-delay: 400ms;
+  height: 450px;
 }
 
 .card:nth-child(3) {
   transition-delay: 600ms;
+  height: 400px;
 }
 
 .card:nth-child(4) {
   transition-delay: 800ms;
+  height: 350px;
 }
 
 .temp-images {
@@ -117,6 +123,6 @@
 
 .tilt-card {
   position: absolute;
-  width: 300px;
-  height: 400px;
+  width: 77%;
+  height: 80%;
 }

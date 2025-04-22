@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 type Game = {
+  id: any;
+  franchise: any;
   name: string;
   cover?: { url: string };
   rating?: number;

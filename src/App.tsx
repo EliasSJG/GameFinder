@@ -3,7 +3,7 @@ import Footer from "./components/footer/footer";
 import Header from "./components/header/header";
 import "./main.scss";
 import BestGames from "./pages/bestGames/bestGames";
-import GameSeries from "./pages/gameSeries/gameSeries";
+// import GameSeries from "./pages/gameSeries/gameSeries";
 import GeneralGames from "./pages/generalGames/generalGames";
 import Hero from "./pages/hero/hero";
 
@@ -12,9 +12,9 @@ function App() {
     <>
       <Header></Header>
       <Hero></Hero>
-      <GeneralGames></GeneralGames>
       <BestGames></BestGames>
-      <GameSeries></GameSeries>
+      <GeneralGames></GeneralGames>
+      {/* <GameSeries></GameSeries> */}
       {/* <GameList></GameList> */}
       <Footer></Footer>
     </>

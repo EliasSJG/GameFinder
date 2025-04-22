@@ -51,7 +51,7 @@ export default function Carousel() {
         className="big-image"
       />
       <div className="text-content">
-        <h1>{activeSlide.title}</h1>
+        <h1 className="game-title">{activeSlide.title}</h1>
         <p>{activeSlide.description}</p>
 
         <div className="img-div">

@@ -1,4 +1,5 @@
 // import GameList from "./components/gamesList/gamesList";
+import Footer from "./components/footer/footer";
 import Header from "./components/header/header";
 import "./main.scss";
 import BestGames from "./pages/bestGames/bestGames";
@@ -15,6 +16,7 @@ function App() {
       <BestGames></BestGames>
       <GameSeries></GameSeries>
       {/* <GameList></GameList> */}
+      <Footer></Footer>
     </>
   );
 }

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import fetchGames from "../../hooks/fetchGames";
 import "./_search.scss";
-import { error } from "console";
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
@@ -10,7 +9,7 @@ export default function SearchBar() {
 
   const handleSearch = async () => {
     if (searchInput === "") {
-      error("You didnt search on anything");
+      alert("You didnt search on anything");
       return;
     }
     const results = await fetchGames(searchInput);

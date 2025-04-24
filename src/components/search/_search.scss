@@ -1,0 +1,23 @@
+.search-bar {
+  width: 30%;
+  height: 3rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  height: 60%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.search-icon {
+  height: 50%;
+  position: absolute;
+  right: 1rem;
+}
+
+.search-icon:hover {
+  cursor: pointer;
+}

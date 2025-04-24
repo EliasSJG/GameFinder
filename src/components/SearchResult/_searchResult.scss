@@ -1,0 +1,22 @@
+.game-images {
+  border-radius: 1.5rem;
+  border: solid 2px #fdc500;
+  box-shadow: 2px 2px 4px black;
+  transition: 0.5s;
+}
+.game-images:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.searched-games-holder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+}
+
+.error {
+  text-align: center;
+}

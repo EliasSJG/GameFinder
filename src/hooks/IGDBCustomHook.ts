@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
+import { GameSearchResult } from "../types/types";
 
-type Game = {
-  id: any;
-  franchise: any;
-  name: string;
-  cover?: { url: string };
-  rating?: number;
-  artworks?: {
-    url: string;
-  }[];
-  summary?: string;
-};
+//remove type game and replace every game type with searchresultprops
 
 const useIGDBHook = (query: string, limit = 30, noPerfectRatings = true) => {
-  const [games, setGames] = useState<Game[]>([]);
+  const [games, setGames] = useState<GameSearchResult[]>([]);
 
   useEffect(() => {
-    const getRandomGames = (gameData: Game[]): Game[] => {
+    const getRandomGames = (
+      gameData: GameSearchResult[]
+    ): GameSearchResult[] => {
       return gameData.sort(() => Math.random() - 0.5).slice(0, 4);
     };
     const getAccessToken = async () => {
@@ -52,7 +45,7 @@ const useIGDBHook = (query: string, limit = 30, noPerfectRatings = true) => {
         const gamesData = await gamesResponse.json();
 
         const filteredGame = noPerfectRatings
-          ? gamesData.filter((game: Game) => game.rating !== 100)
+          ? gamesData.filter((game: GameSearchResult) => game.rating !== 100)
           : gamesData;
 
         //showing games in console log

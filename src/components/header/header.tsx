@@ -1,5 +1,6 @@
 import "./_header.scss";
 import logo from "../../assets/Logo.png";
+import SearchBar from "../search/search";
 
 export default function Header() {
   return (
@@ -9,21 +10,7 @@ export default function Header() {
           <img className="logo" src={logo} alt="GAME FINDER LGOG" />
         </a>
       </div>
-      <div>
-        <input
-          placeholder="Search for game..."
-          className="header-search"
-          type="search"
-        />
-        <a href="">
-          <img
-            className="search-icon"
-            src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-21.png"
-            alt=""
-          />
-        </a>
-      </div>
-
+      <SearchBar />
       <div>
         <a href="">
           <img

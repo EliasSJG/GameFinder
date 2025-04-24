@@ -13,3 +13,10 @@ p,
 a {
   font-family: $text-main;
 }
+h2 {
+  font-family: $heading-main;
+  font-size: 7.5rem;
+  color: #fdc500;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #000000;
+}

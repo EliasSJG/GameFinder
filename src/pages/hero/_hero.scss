@@ -5,6 +5,12 @@
   position: relative;
   height: 90vh;
 }
+.header-search-hero {
+  height: 60%;
+  width: 100%;
+
+  border-radius: 4rem;
+}
 
 .hero-image-div {
   position: absolute;
@@ -22,17 +28,4 @@
 .hero-image-rope {
   width: 100%;
   z-index: -2;
-}
-.header-search-hero {
-  height: 35%;
-  width: 100%;
-
-  border-radius: 4rem;
-}
-
-.search-div {
-  position: absolute;
-  bottom: 4rem;
-  width: 30rem;
-  height: 10rem;
 }

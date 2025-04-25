@@ -3,7 +3,7 @@ import "./main.scss";
 
 import RootLayout from "./layout/RootLayout";
 import FirstPage from "./pages/fullFirstPage/FirstPage";
-import SearchResultPage from "./components/SearchResult/searchResult";
+import SearchResultPage from "./pages/SearchResult/searchResult";
 
 function App() {
   const router = createBrowserRouter([

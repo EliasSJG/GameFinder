@@ -45,13 +45,6 @@ h1 {
     #fdc500
   );
 
-  // background-image: conic-gradient(
-  //   from var(--angle),
-  //   transparent,
-  //   90%,
-  //   #fdc500
-  // );
-
   background-image: conic-gradient(
     from var(--angle),
     rgb(255, 0, 0),
@@ -125,4 +118,9 @@ h1 {
   position: absolute;
   width: 77%;
   height: 80%;
+  transition: 1s;
+}
+
+.tilt-card:hover {
+  transform: scale(1.1);
 }

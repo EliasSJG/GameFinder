@@ -1,6 +1,6 @@
-import BestGames from "../bestGames/bestGames";
-import GeneralGames from "../generalGames/generalGames";
-import Hero from "../hero/hero";
+import BestGames from "../../components/bestGames/bestGames";
+import GeneralGames from "../../components/generalGames/generalGames";
+import Hero from "../../components/hero/hero";
 
 export default function FirstPage() {
   return (

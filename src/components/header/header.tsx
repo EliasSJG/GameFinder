@@ -1,14 +1,15 @@
 import "./_header.scss";
 import logo from "../../assets/Logo.png";
 import SearchBar from "../search/search";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <header>
       <div>
-        <a href="">
+        <Link to="/">
           <img className="logo" src={logo} alt="GAME FINDER LGOG" />
-        </a>
+        </Link>
       </div>
       <SearchBar />
       <div>

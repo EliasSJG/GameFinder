@@ -1,6 +1,5 @@
 import "./_generalGames.scss";
 import { useEffect, useRef } from "react";
-// import { Tilt } from "react-tilt";
 import useIGDBHook from "../../hooks/IGDBCustomHook";
 
 export default function GeneralGames() {
@@ -45,12 +44,6 @@ export default function GeneralGames() {
                 imagesPop.current[index] = el;
               }}
             >
-              {/* <Tilt className="tilt-card border">
-                <a href="">
-                  <img className="temp-images" src={imageUrl} alt="" />
-                </a>
-              </Tilt> */}
-
               <div className="tilt-card border">
                 <a href="">
                   <img className="temp-images" src={imageUrl} alt="" />

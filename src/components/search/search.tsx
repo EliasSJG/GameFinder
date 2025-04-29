@@ -21,7 +21,7 @@ export default function SearchBar() {
   return (
     <div className="search-bar">
       <input
-        placeholder="Search for game..."
+        placeholder="Search for game or charachter..."
         className="search-input"
         type="text"
         value={searchInput}

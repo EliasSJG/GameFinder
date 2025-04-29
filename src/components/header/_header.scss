@@ -6,6 +6,11 @@ header {
   align-items: center;
   background-color: $background-color;
   border-bottom: 2px white solid;
+  z-index: 600;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
   div {
     height: 100%;
 

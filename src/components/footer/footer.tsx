@@ -1,5 +1,6 @@
 import "./_footer.scss";
 import logo from "../../assets/Logo.png";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -27,7 +28,11 @@ export default function Footer() {
       </svg>
 
       <footer>
-        <img className="footer-logo" src={logo} alt="Gamefinder" />
+        <div>
+          <Link to="/">
+            <img className="footer-logo" src={logo} alt="Gamefinder" />
+          </Link>
+        </div>
         <h3>Created by Elias Gustafsson | Frontend developer student</h3>
         <h3>Yrkeshögskolan i Borås</h3>
         <h3>Frontendutvecklare React</h3>

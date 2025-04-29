@@ -52,7 +52,7 @@ export default function Carousel() {
       />
       <div className="text-content">
         <h1 className="game-title">{activeSlide.title}</h1>
-        <p>{activeSlide.description}</p>
+        <p className="game-description">{activeSlide.description}</p>
 
         <div className="img-div">
           {slides.map((slide) => (

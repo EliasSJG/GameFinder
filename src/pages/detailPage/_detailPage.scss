@@ -45,6 +45,18 @@
   flex-direction: column;
   align-items: center;
   background-color: white;
+  max-height: 100%;
+  padding-bottom: 10rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 58%, transparent 100%);
+  ul {
+    list-style: none;
+    li {
+      font-size: 1.2rem;
+      margin: 1rem;
+    }
+  }
 }
 
 .user-experience {

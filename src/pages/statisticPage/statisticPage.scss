@@ -1,0 +1,39 @@
+.general-statistics {
+  display: flex;
+  background-color: lightgray;
+  justify-content: space-between;
+  padding: 0 2rem;
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  h2 {
+    font-size: 4rem;
+    margin: 0;
+  }
+}
+.Ganes-links {
+  display: flex;
+  background-color: lightgray;
+
+  justify-content: space-evenly;
+  padding: 0 2rem;
+  h3 {
+    font-size: 2.5rem;
+  }
+}
+
+.games-section {
+  div {
+    width: 250px;
+    height: 300px;
+    background-color: white;
+    border: solid;
+  }
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  gap: 5rem;
+  margin-top: 2rem;
+}

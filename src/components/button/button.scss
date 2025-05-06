@@ -1,5 +1,9 @@
-.search-icon {
-  height: 45%;
-  position: absolute;
-  right: 1rem;
+button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  margin: 1rem;
+}
+button:hover {
+  cursor: pointer;
 }

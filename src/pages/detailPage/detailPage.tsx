@@ -1,6 +1,7 @@
 import "./_detailPage.scss";
 import { useParams } from "react-router-dom";
 import fetchGameDetails from "../../hooks/singleGameFetch";
+import Button from "../../components/button/button";
 
 export default function DetailPage() {
   const { gameId } = useParams();
@@ -38,9 +39,6 @@ export default function DetailPage() {
           </div>
 
           <div className="detail-second-page">
-            <div className="user-experience">
-              <h2>Here user will give their ratings</h2>
-            </div>
             <div className="quick-info">
               <h2>Quick Info</h2>
               <ul>
@@ -49,6 +47,17 @@ export default function DetailPage() {
                 <li>Game rating: {Math.round(gameDetails.rating)}</li>
                 <li>First released date: {releaseDate}</li>
               </ul>
+            </div>
+
+            <div className="user-experience-div">
+              <h3>Tell us youre experience!</h3>
+              <div className="user-experience">
+                <Button title="Add to played list" />
+                <Button title="Add to favorites" />
+                <Button title="Add to wishlist" />
+                <Button title="Write a review" />
+                <Button title="Time to beat" />
+              </div>
             </div>
           </div>
         </div>

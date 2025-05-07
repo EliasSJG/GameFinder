@@ -3,12 +3,33 @@ import { useParams } from "react-router-dom";
 import usefetchGameDetails from "../../hooks/useGameFetch";
 import Button from "../../components/button/button";
 import { useGameContext } from "../../context/gameContext";
+import { useState } from "react";
+import Toast from "../../components/toast/toast";
 
 export default function DetailPage() {
   const { gameId } = useParams();
-  const { addPlayedGame, removePlayedGame, playedGames } = useGameContext();
+  const {
+    addPlayedGame,
+    removePlayedGame,
+    playedGames,
+    addFavoriteGame,
+    removeFavoritesGame,
+    favoriteGames,
+    addWishListGame,
+    removeWishListGame,
+    wishListGames,
+  } = useGameContext();
+
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
   if (!gameId) return <div>Game Not Found</div>;
   const GameId = Number(gameId);
+
   const {
     gameDetails,
     artworkUrl,
@@ -22,6 +43,8 @@ export default function DetailPage() {
   if (loading) return <div>Loading...</div>;
 
   const isPlayed = playedGames.some((game) => game.id === GameId);
+  const isFavorite = favoriteGames.some((game) => game.id === GameId);
+  const isWishlisted = wishListGames.some((game) => game.id === GameId);
 
   const handleTogglePlayed = () => {
     if (!gameDetails) return;
@@ -37,8 +60,52 @@ export default function DetailPage() {
 
     if (isPlayed) {
       removePlayedGame(GameId);
+      showToast("Removed from played list in the statistics page");
     } else {
       addPlayedGame(gameToToggle);
+      showToast("Added to played list in the statistics page");
+    }
+  };
+
+  const handleToggleFavorite = () => {
+    if (!gameDetails) return;
+
+    const gameToToggle = {
+      ...gameDetails,
+      cover: {
+        id: gameDetails.cover.id,
+        url: cover || "",
+        image_id: gameDetails.cover.image_id,
+      },
+    };
+
+    if (isFavorite) {
+      removeFavoritesGame(GameId);
+      showToast("Removed from favorites in the statistics page");
+    } else {
+      addFavoriteGame(gameToToggle);
+      showToast("Added to favorites in the statistics page");
+    }
+  };
+
+  const handleToggleWishlist = () => {
+    if (!gameDetails) return;
+
+    const gameToToggle = {
+      ...gameDetails,
+      cover: {
+        id: gameDetails.cover.id,
+        url: cover || "",
+        image_id: gameDetails.cover.image_id,
+      },
+    };
+
+    if (isWishlisted) {
+      removeWishListGame(GameId);
+      showToast("Removed from wishlist in the statistics page");
+    } else {
+      addWishListGame(gameToToggle);
+      showToast("Added to wishlist in the statistics page");
     }
   };
 
@@ -74,7 +141,7 @@ export default function DetailPage() {
             </div>
 
             <div className="user-experience-div">
-              <h3>Tell us youre experience!</h3>
+              <h3>Tell us your experience!</h3>
               <div className="user-experience">
                 <Button
                   title={
@@ -82,10 +149,18 @@ export default function DetailPage() {
                   }
                   onClick={handleTogglePlayed}
                 />
-
-                <Button onClick={() => {}} title="Add to favorites" />
-
-                <Button onClick={() => {}} title="Add to wishlist" />
+                <Button
+                  title={
+                    isFavorite ? "Remove from favorites" : "Add to favorites"
+                  }
+                  onClick={handleToggleFavorite}
+                />
+                <Button
+                  title={
+                    isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+                  }
+                  onClick={handleToggleWishlist}
+                />
                 <Button onClick={() => {}} title="Write a review" />
                 <Button onClick={() => {}} title="Time to beat" />
               </div>
@@ -93,6 +168,7 @@ export default function DetailPage() {
           </div>
         </div>
       )}
+      {toastMessage && <Toast message={toastMessage} />}
     </>
   );
 }

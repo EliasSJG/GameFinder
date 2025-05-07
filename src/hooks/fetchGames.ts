@@ -32,7 +32,6 @@ const fetchSearchResults = async (
     const bodyConfigs = {
       games: `search "${query}"; fields name, cover.image_id, rating; limit 30; where rating != null;`,
       characters: `search "${query}"; fields *, mug_shot.image_id;`,
-      companies: `search "${query}"; fields name, logo.image_id; limit 20;`,
     };
 
     const [gamesRes, charactersRes] = await Promise.all([
@@ -41,11 +40,6 @@ const fetchSearchResults = async (
         method: "POST",
         headers,
         body: bodyConfigs.characters,
-      }),
-      fetch("/api/companies", {
-        method: "POST",
-        headers,
-        body: bodyConfigs.companies,
       }),
     ]);
 

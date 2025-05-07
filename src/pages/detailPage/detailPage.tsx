@@ -1,10 +1,12 @@
 import "./_detailPage.scss";
 import { useParams } from "react-router-dom";
-import fetchGameDetails from "../../hooks/singleGameFetch";
+import usefetchGameDetails from "../../hooks/useGameFetch";
 import Button from "../../components/button/button";
+import { useGameContext } from "../../context/gameContext";
 
 export default function DetailPage() {
   const { gameId } = useParams();
+  const { addPlayedGame, removePlayedGame, playedGames } = useGameContext();
   if (!gameId) return <div>Game Not Found</div>;
   const GameId = Number(gameId);
   const {
@@ -14,9 +16,31 @@ export default function DetailPage() {
     themeNames,
     releaseDate,
     loading,
-  } = fetchGameDetails(GameId);
+    cover,
+  } = usefetchGameDetails(GameId);
 
   if (loading) return <div>Loading...</div>;
+
+  const isPlayed = playedGames.some((game) => game.id === GameId);
+
+  const handleTogglePlayed = () => {
+    if (!gameDetails) return;
+
+    const gameToToggle = {
+      ...gameDetails,
+      cover: {
+        id: gameDetails.cover.id,
+        url: cover || "",
+        image_id: gameDetails.cover.image_id,
+      },
+    };
+
+    if (isPlayed) {
+      removePlayedGame(GameId);
+    } else {
+      addPlayedGame(gameToToggle);
+    }
+  };
 
   return (
     <>
@@ -52,11 +76,18 @@ export default function DetailPage() {
             <div className="user-experience-div">
               <h3>Tell us youre experience!</h3>
               <div className="user-experience">
-                <Button title="Add to played list" />
-                <Button title="Add to favorites" />
-                <Button title="Add to wishlist" />
-                <Button title="Write a review" />
-                <Button title="Time to beat" />
+                <Button
+                  title={
+                    isPlayed ? "Remove from played list" : "Add to played list"
+                  }
+                  onClick={handleTogglePlayed}
+                />
+
+                <Button onClick={() => {}} title="Add to favorites" />
+
+                <Button onClick={() => {}} title="Add to wishlist" />
+                <Button onClick={() => {}} title="Write a review" />
+                <Button onClick={() => {}} title="Time to beat" />
               </div>
             </div>
           </div>

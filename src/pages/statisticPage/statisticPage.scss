@@ -13,7 +13,7 @@
     margin: 0;
   }
 }
-.Ganes-links {
+.games-links {
   display: flex;
   background-color: lightgray;
 
@@ -21,6 +21,7 @@
   padding: 0 2rem;
   h3 {
     font-size: 2.5rem;
+    cursor: pointer;
   }
 }
 
@@ -28,8 +29,6 @@
   div {
     width: 250px;
     height: 300px;
-    background-color: white;
-    border: solid;
   }
   padding: 0 2rem;
   display: grid;

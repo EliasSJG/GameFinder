@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Game } from "../types/types";
 
-const fetchGameDetails = (gameId: number) => {
+const usefetchGameDetails = (gameId: number) => {
   const [gameDetails, setGameDetails] = useState<Game | null>(null);
   const [artworkUrl, setArtworkUrl] = useState<string | null>(null);
   const [genreNames, setGenreNames] = useState<string[]>([]);
   const [themeNames, setThemeNames] = useState<string[]>([]);
+  const [cover, setCover] = useState<string | null>(null);
 
   const [releaseDate, setReleaseDate] = useState<string>("N/A");
   const [loading, setLoading] = useState<boolean>(true);
@@ -54,6 +55,27 @@ const fetchGameDetails = (gameId: number) => {
           if (artworkUrlFromAPI) {
             const fullSizeUrl = artworkUrlFromAPI.replace("t_thumb", "t_1080p");
             setArtworkUrl(`https:${fullSizeUrl}`);
+          }
+        }
+        if (game.cover) {
+          const coverResponse = await fetch(`/api/covers`, {
+            method: "POST",
+            headers: {
+              "Client-ID": import.meta.env.VITE_TWITCH_CLIENT_ID,
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "text/plain",
+            },
+            body: `fields url; where id = ${game.cover};`,
+          });
+
+          const coverData = await coverResponse.json();
+          const coverUrl = coverData[0]?.url;
+
+          console.log("Cover URL:", coverUrl);
+
+          if (coverUrl) {
+            const fullCoverUrl = coverUrl.replace("t_thumb", "t_cover_big");
+            setCover(`https:${fullCoverUrl}`);
           }
         }
 
@@ -121,7 +143,8 @@ const fetchGameDetails = (gameId: number) => {
     themeNames,
     releaseDate,
     loading,
+    cover,
   };
 };
 
-export default fetchGameDetails;
+export default usefetchGameDetails;

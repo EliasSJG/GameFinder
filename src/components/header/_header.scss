@@ -1,9 +1,7 @@
 @use "../../styles/abstract/variables" as *;
+@use "../../styles/abstract/mixins" as *;
 header {
   height: 70px;
-  justify-content: space-evenly;
-  display: flex;
-  align-items: center;
   background-color: $background-color;
   border-bottom: 2px white solid;
   z-index: 600;
@@ -11,18 +9,15 @@ header {
   right: 0;
   left: 0;
   top: 0;
+
+  @include flex(row, space-evenly);
   div {
     height: 100%;
-
-    align-items: center;
-    display: flex;
+    @include flex();
   }
   a {
     height: 100%;
-    color: white;
-    align-items: center;
-    display: flex;
-    text-decoration: none;
+    @include flex();
   }
 }
 

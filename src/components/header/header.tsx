@@ -9,18 +9,16 @@ export default function Header() {
     <header>
       <div>
         <Link to="/">
-          <img className="logo" src={logo} alt="GAME FINDER LGOG" />
+          <img className="logo" src={logo} alt="GAME FINDER" />
         </Link>
       </div>
       <SearchBar />
       <div>
-        <a href="">
-          <img
-            className="meny"
-            src="https://img.icons8.com/ios11/512/FFFFFF/menu.png"
-            alt=""
-          />
-        </a>
+        <img
+          className="meny"
+          src="https://img.icons8.com/ios11/512/FFFFFF/menu.png"
+          alt="Meny"
+        />
       </div>
       <div>
         <Link to="/statistics">

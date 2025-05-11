@@ -1,9 +1,8 @@
+@use "../../styles/abstract/mixins" as *;
 .type-image {
-  border-radius: 1.5rem;
-  border: solid 2px #fdc500;
-  box-shadow: 2px 2px 4px black;
   transition: 0.5s;
   width: 100%;
+  @include border();
 }
 
 .type-image:hover {
@@ -12,39 +11,23 @@
 }
 
 .searched-holder {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  @include grid();
   padding: 2rem;
   justify-items: center;
+  justify-content: space-evenly;
 }
 
-.searched-type {
-  text-align: center;
-}
-
-//fix these 2
-.error {
-  text-align: center;
-}
 .character-card {
   background-color: white;
-  width: 50%;
+  width: 70%;
   height: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1.5rem;
+  @include flex(column, center);
+  @include border();
   img {
     max-width: 80%;
     height: auto;
     object-fit: contain;
     margin-top: 1rem;
-  }
-
-  h3 {
-    text-align: center;
   }
 }

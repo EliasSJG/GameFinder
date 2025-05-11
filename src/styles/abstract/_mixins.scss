@@ -1,0 +1,53 @@
+@mixin flex(
+  $flex-direction: column,
+  $justify-content: center,
+  $align-items: center
+) {
+  display: flex;
+  align-items: $align-items;
+  flex-direction: $flex-direction;
+  justify-content: $justify-content;
+}
+
+@mixin border($border-radius: 1.5rem) {
+  border-radius: $border-radius;
+  border: solid 3px #fdc500;
+  box-shadow: 2px 2px 4px black;
+}
+
+@mixin grid() {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+}
+
+@mixin games-delay(
+  $count,
+  $base-delay: 200ms,
+  $delay-step: 200ms,
+  $heights: null
+) {
+  @for $i from 1 through $count {
+    .card:nth-child(#{$i}) {
+      transition-delay: calc($base-delay + ($i - 1) * $delay-step);
+      @if $heights != null and length($heights) >= $i {
+        height: nth($heights, $i);
+      }
+    }
+  }
+}
+
+@mixin wave-delay(
+  $count,
+  $base-delay: -2s,
+  $delay-step: -1s,
+  $durations: null
+) {
+  @for $i from 1 through $count {
+    use:nth-child(#{$i}) {
+      animation-delay: calc($base-delay + ($i - 1) * $delay-step);
+      @if $durations != null and length($durations) >= $i {
+        animation-duration: nth($durations, $i);
+      }
+    }
+  }
+}

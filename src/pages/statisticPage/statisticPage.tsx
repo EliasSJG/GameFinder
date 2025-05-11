@@ -27,16 +27,16 @@ export default function StatisticPage() {
       <h1>Your Statistics</h1>
       <div className="general-statistics">
         <div>
-          <h2>Games Played</h2>
-          <h2>{playedGames.length}</h2>
+          <h3>Games Played</h3>
+          <h3>{playedGames.length}</h3>
         </div>
         <div>
-          <h2>Total Hours Played</h2>
-          <h2>0</h2>
+          <h3>Total Hours Played</h3>
+          <h3>0</h3>
         </div>
         <div>
-          <h2>Most common theme/genre</h2>
-          <h2>0</h2>
+          <h3>Most common theme/genre</h3>
+          <h3>0</h3>
         </div>
       </div>
       <div className="games-links">

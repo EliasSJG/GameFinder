@@ -1,10 +1,9 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Game, Character } from "../../types/types";
 import "./_searchResult.scss";
 
 export default function SearchResultPage() {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const { games, characters } = location.state?.results || {
     games: [],
@@ -14,19 +13,15 @@ export default function SearchResultPage() {
   const query = location.state?.query || "";
   const baseImgUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/";
 
-  const handleGame = (game: Game) => {
-    navigate(`/game/${game.id}`, { state: { game } });
-  };
-
   return (
     <div>
       <h1>{query}</h1>
 
       {games.length === 0 && characters.length === 0 ? (
-        <h2 className="error">No results were found for {query}</h2>
+        <h2 className="text-center">No results were found for {query}</h2>
       ) : (
         <>
-          <h2 className="searched-type">Games</h2>
+          <h2 className="text-center">Games</h2>
           {games.length > 0 && (
             <div className="searched-holder">
               {games.map((game: Game) => (
@@ -47,7 +42,7 @@ export default function SearchResultPage() {
 
           {characters.length > 0 && (
             <>
-              <h2 className="searched-type">Characters</h2>
+              <h2 className="text-center">Characters</h2>
               <div className="searched-holder">
                 {characters.map((character: Character) => (
                   <div key={character.id} className="character-card">
@@ -58,9 +53,9 @@ export default function SearchResultPage() {
                         className="type-image"
                       />
                     ) : (
-                      <p className="error">No image available</p>
+                      <p className="text-center">No image available</p>
                     )}
-                    <h3>{character.name}</h3>
+                    <h3 className="text-center">{character.name}</h3>
                   </div>
                 ))}
               </div>

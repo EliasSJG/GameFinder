@@ -29,7 +29,7 @@ export default function GeneralGames() {
 
   return (
     <div className="showcase-games-div">
-      <h1>Games For You!</h1>
+      <h1 className="text-center">Games For You!</h1>
       <div className="games-holder">
         {games.map((game, index) => {
           const imageUrl = game.cover?.url
@@ -46,7 +46,7 @@ export default function GeneralGames() {
             >
               <div className="tilt-card border">
                 <a href="">
-                  <img className="temp-images" src={imageUrl} alt="" />
+                  <img className="temp-images" src={imageUrl} alt={game.name} />
                 </a>
               </div>
             </div>

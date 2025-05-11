@@ -1,15 +1,15 @@
+@use "../../styles/abstract/mixins" as *;
 .search-bar {
   width: 30%;
   height: 3rem;
   position: relative;
-  display: flex;
-  align-items: center;
+  @include flex();
 }
 
 .search-input {
   height: 60%;
   width: 100%;
-  border-radius: 15px;
+  border-radius: 1rem;
 }
 
 .search-icon {

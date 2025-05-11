@@ -1,34 +1,6 @@
+@use "../../styles/abstract/mixins" as *;
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
   height: 90vh;
-  h2 {
-    margin: 10rem;
-  }
-}
-.header-search-hero {
-  height: 60%;
-  width: 100%;
-
-  border-radius: 4rem;
-}
-
-.hero-image-div {
-  position: absolute;
-}
-.hero-image-controller {
-  width: 100%;
-  z-index: 0;
-}
-
-.hero-controller-div {
-  position: absolute;
-  z-index: -1;
-}
-
-.hero-image-rope {
-  width: 100%;
-  z-index: -2;
+  @include flex(column, space-evenly);
 }

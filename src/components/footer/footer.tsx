@@ -20,7 +20,7 @@ export default function Footer() {
           />
         </defs>
         <g className="parallax">
-          <use href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+          <use href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
           <use href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
           <use href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
           <use href="#gentle-wave" x="48" y="7" fill="#fff" />
@@ -33,10 +33,10 @@ export default function Footer() {
             <img className="footer-logo" src={logo} alt="Gamefinder" />
           </Link>
         </div>
-        <h3>Created by Elias Gustafsson | Frontend developer student</h3>
-        <h3>Yrkeshögskolan i Borås</h3>
-        <h3>Frontendutvecklare React</h3>
-        <h3>Created with IGDB API</h3>
+        <p>Created by Elias Gustafsson | Frontend developer student</p>
+        <p>Yrkeshögskolan i Borås</p>
+        <p>Frontendutvecklare React</p>
+        <p>Created with IGDB API</p>
       </footer>
     </>
   );

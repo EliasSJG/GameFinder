@@ -1,3 +1,4 @@
+@use "../../styles/abstract/mixins" as *;
 .detail-hero {
   position: relative;
   height: 100vh;
@@ -21,13 +22,7 @@
   padding: 20px;
   backdrop-filter: blur(5px);
   margin-top: 50px;
-  p {
-    width: 100%;
-    margin: 0;
-    font-size: 1.4rem;
-  }
   h3 {
-    font-size: 3rem;
     width: 100%;
     margin: 0;
     margin-bottom: 1rem;
@@ -41,23 +36,16 @@
 }
 
 .user-experience-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(column);
   background-color: white;
   padding-bottom: 10rem;
   overflow: hidden;
   mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 58%, transparent 100%);
-  h3 {
-    font-size: 3rem;
-  }
 }
 
 .quick-info {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  @include flex(column);
   ul {
     list-style: none;
     li {
@@ -69,11 +57,6 @@
 }
 
 .user-experience {
-  display: flex;
-  flex-direction: column;
   margin-left: 1rem;
-  p {
-    color: white;
-    font-size: 1.4rem;
-  }
+  @include flex(column);
 }

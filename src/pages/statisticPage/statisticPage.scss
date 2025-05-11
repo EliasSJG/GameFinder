@@ -1,26 +1,17 @@
+@use "../../styles/abstract/mixins" as *;
 .general-statistics {
-  display: flex;
   background-color: lightgray;
-  justify-content: space-between;
   padding: 0 2rem;
+  @include flex(row, space-between);
   div {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  h2 {
-    font-size: 4rem;
-    margin: 0;
+    @include flex(column, space-between);
   }
 }
 .games-links {
-  display: flex;
   background-color: lightgray;
-
-  justify-content: space-evenly;
+  @include flex(row, space-evenly);
   padding: 0 2rem;
   h3 {
-    font-size: 2.5rem;
     cursor: pointer;
   }
 }
@@ -31,8 +22,7 @@
     height: 300px;
   }
   padding: 0 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
   gap: 5rem;
   margin-top: 2rem;
+  @include grid();
 }

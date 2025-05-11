@@ -1,13 +1,10 @@
+@use "../../styles/abstract/mixins" as *;
 footer {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
   text-align: center;
-  color: white;
-}
-.footer-logo {
-  width: 40%;
+  @include flex(column, center);
+  .footer-logo {
+    width: 40%;
+  }
 }
 
 .waves {
@@ -21,22 +18,9 @@ footer {
 use {
   animation: infinite 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
 }
-use:nth-child(1) {
-  animation-delay: -2s;
-  animation-duration: 7s;
-}
-use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
-}
-use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 13s;
-}
-use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 20s;
-}
+
+@include wave-delay(4, -2s, -1s, (7s, 10s, 13s, 20s));
+
 @keyframes infinite {
   0% {
     transform: translateX(-90px);

@@ -15,7 +15,7 @@ export default function SearchResultPage() {
 
   return (
     <div>
-      <h1>{query}</h1>
+      <h1 className="text-center">{query}</h1>
 
       {games.length === 0 && characters.length === 0 ? (
         <h2 className="text-center">No results were found for {query}</h2>

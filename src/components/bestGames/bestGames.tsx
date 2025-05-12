@@ -1,6 +1,6 @@
 import "./bestGames.scss";
 import { useEffect, useState } from "react";
-import useIGDBHook from "../../hooks/IGDBCustomHook";
+import useIGDBHook from "../../hooks/useIGDBHook";
 
 type Slide = {
   id: number;

@@ -1,10 +1,11 @@
-import "./_detailPage.scss";
-import { useParams } from "react-router-dom";
-import usefetchGameDetails from "../../hooks/useGameFetch";
-import Button from "../../components/button/button";
-import { useGameContext } from "../../context/gameContext";
 import { useState } from "react";
+import Button from "../../components/button/button";
 import Toast from "../../components/toast/toast";
+import usefetchGameDetails from "../../hooks/useGameFetch";
+import { useGameContext } from "../../context/gameContext";
+import { useParams } from "react-router-dom";
+import Modal from "../../components/modal/modal";
+import "./_detailPage.scss";
 
 export default function DetailPage() {
   const { gameId } = useParams();
@@ -18,9 +19,12 @@ export default function DetailPage() {
     addWishListGame,
     removeWishListGame,
     wishListGames,
+    addReview,
   } = useGameContext();
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const showToast = (message: string) => {
     setToastMessage(message);
     setTimeout(() => setToastMessage(null), 3000);
@@ -66,6 +70,24 @@ export default function DetailPage() {
     showToast(isActive ? removeMsg : addMsg);
   };
 
+  const handleOpenReviewModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseReviewModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleReviewSubmit = (review: string, rating: number, time: number) => {
+    console.log("Review Submitted:", review, rating, time);
+
+    addPlayedGame(gameToToggle);
+    addReview(GameId, review, rating, time);
+
+    showToast("Added to played list with your review");
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <div>
@@ -99,16 +121,21 @@ export default function DetailPage() {
                 title={
                   isPlayed ? "Remove from played list" : "Add to played list"
                 }
-                onClick={() =>
-                  handleToggleGameState(
-                    isPlayed,
-                    addPlayedGame,
-                    removePlayedGame,
-                    "Added to played list in the statistics page",
-                    "Removed from played list in the statistics page"
-                  )
-                }
+                onClick={() => {
+                  if (isPlayed) {
+                    handleToggleGameState(
+                      true,
+                      addPlayedGame,
+                      removePlayedGame,
+                      "Added to played list",
+                      "Removed from played list"
+                    );
+                  } else {
+                    handleOpenReviewModal();
+                  }
+                }}
               />
+
               <Button
                 title={
                   isFavorite ? "Remove from favorites" : "Add to favorites"
@@ -118,8 +145,8 @@ export default function DetailPage() {
                     isFavorite,
                     addFavoriteGame,
                     removeFavoritesGame,
-                    "Added to favorites in the statistics page",
-                    "Removed from favorites in the statistics page"
+                    "Added to favorites",
+                    "Removed from favorites"
                   )
                 }
               />
@@ -132,18 +159,25 @@ export default function DetailPage() {
                     isWishlisted,
                     addWishListGame,
                     removeWishListGame,
-                    "Added to wishlist in the statistics page",
-                    "Removed from wishlist in the statistics page"
+                    "Added to wishlist",
+                    "Removed from wishlist"
                   )
                 }
               />
-              <Button onClick={() => {}} title="Write a review" />
-              <Button onClick={() => {}} title="Time to beat" />
             </div>
           </div>
         </div>
       </div>
+
       {toastMessage && <Toast message={toastMessage} />}
+
+      {isModalOpen && (
+        <Modal
+          gameDetails={gameDetails}
+          onClose={handleCloseReviewModal}
+          onSubmit={handleReviewSubmit}
+        />
+      )}
     </>
   );
 }

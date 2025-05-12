@@ -1,6 +1,6 @@
 import "./_generalGames.scss";
 import { useEffect, useRef } from "react";
-import useIGDBHook from "../../hooks/IGDBCustomHook";
+import useIGDBHook from "../../hooks/useIGDBHook";
 
 export default function GeneralGames() {
   const imagesPop = useRef<(HTMLDivElement | null)[]>([]);

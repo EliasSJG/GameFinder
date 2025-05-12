@@ -11,15 +11,24 @@ type gameContextProps = {
   removeWishListGame: (gameId: number) => void;
   addFavoriteGame: (game: Game) => void;
   removeFavoritesGame: (gameId: number) => void;
+  reviews: Map<number, { review: string; rating: number; timeToBeat: number }>;
+  addReview: (
+    gameId: number,
+    review: string,
+    rating: number,
+    timeToBeat: number
+  ) => void;
 };
 
 const gameContext = createContext<gameContextProps | undefined>(undefined);
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [playedGames, setPlayedGames] = useState<Game[]>([]);
+  const [reviews, setReviews] = useState<
+    Map<number, { review: string; rating: number; timeToBeat: number }>
+  >(new Map());
   const [wishListGames, setWishListGames] = useState<Game[]>([]);
   const [favoriteGames, setFavoriteGames] = useState<Game[]>([]);
-
   const addPlayedGame = (game: Game) => {
     if (!playedGames.find((g) => g.id === game.id)) {
       setPlayedGames([...playedGames, game]);
@@ -28,13 +37,27 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
   const removePlayedGame = (gameId: number) => {
     setPlayedGames((prev) => prev.filter((g) => g.id !== gameId));
+    setReviews((prev) => {
+      const newReviews = new Map(prev);
+      newReviews.delete(gameId);
+      return newReviews;
+    });
   };
   const addWishListGame = (game: Game) => {
     if (!wishListGames.find((g) => g.id === game.id)) {
       setWishListGames([...wishListGames, game]);
     }
   };
-
+  const addReview = (
+    gameId: number,
+    review: string,
+    rating: number,
+    timeToBeat: number
+  ) => {
+    setReviews((prev) =>
+      new Map(prev).set(gameId, { review, rating, timeToBeat })
+    );
+  };
   const removeWishListGame = (gameId: number) => {
     setWishListGames((prev) => prev.filter((g) => g.id !== gameId));
   };
@@ -60,6 +83,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         removeWishListGame,
         addFavoriteGame,
         removeFavoritesGame,
+        reviews,
+        addReview,
       }}
     >
       {children}

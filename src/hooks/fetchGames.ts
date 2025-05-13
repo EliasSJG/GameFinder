@@ -4,7 +4,7 @@ const fetchSearchResults = async (query: string) => {
   try {
     const bodyConfigs = {
       games: `search "${query}"; fields name, cover.image_id, rating; limit 30; where rating != null;`,
-      characters: `search "${query}"; fields *, mug_shot.image_id;`,
+      characters: `search "${query}"; fields *, mug_shot.image_id, description; `,
     };
 
     const [gamesData, charactersData] = await Promise.all([

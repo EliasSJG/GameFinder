@@ -4,25 +4,26 @@
   background-color: lightgray;
   @include flex(row, space-evenly);
   padding: 0 2rem;
+  opacity: 0.7;
+
   h3 {
     cursor: pointer;
+    transition: border-bottom 0.2s ease-in-out;
+
+    &.active {
+      border-bottom: 3px solid black;
+    }
   }
 }
 
 .general-statistics {
   background-color: lightgray;
   padding: 0 2rem;
+  opacity: 0.7;
   @include flex(row, space-between);
   div {
     @include flex(column, space-between);
   }
-}
-
-.games-section {
-  padding: 0 2rem;
-  gap: 5rem;
-  margin-top: 2rem;
-  @include grid();
 }
 
 .game-div {
@@ -58,4 +59,27 @@
   overflow-y: auto;
   padding: 10px;
   overflow-wrap: break-word;
+}
+
+.games-section {
+  padding: 0 2rem;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 3.5rem;
+  justify-items: center;
+}
+
+.char-section {
+  padding: 0 2rem;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+  gap: 7rem;
+  justify-items: center;
+
+  justify-content: center;
+}
+.character-card p {
+  max-height: 300px;
 }

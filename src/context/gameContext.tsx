@@ -1,10 +1,14 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Game } from "../types/types";
+import { Character, Game } from "../types/types";
 
 type gameContextProps = {
   playedGames: Game[];
   wishListGames: Game[];
   favoriteGames: Game[];
+  favoriteCharacters: Character[];
+  addFavoriteCharacter: (character: Character) => void;
+  removeFavoriteCharacter: (characterId: number) => void;
+  isCharacterFavorited: (characterId: number) => boolean;
   addPlayedGame: (game: Game) => void;
   removePlayedGame: (gameId: number) => void;
   addWishListGame: (game: Game) => void;
@@ -29,6 +33,22 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   >(new Map());
   const [wishListGames, setWishListGames] = useState<Game[]>([]);
   const [favoriteGames, setFavoriteGames] = useState<Game[]>([]);
+  const [favoriteCharacters, setFavoriteCharacters] = useState<Character[]>([]);
+
+  const addFavoriteCharacter = (character: Character) => {
+    if (!favoriteCharacters.find((c) => c.id === character.id)) {
+      setFavoriteCharacters([...favoriteCharacters, character]);
+    }
+  };
+
+  const removeFavoriteCharacter = (characterId: number) => {
+    setFavoriteCharacters((prev) => prev.filter((c) => c.id !== characterId));
+  };
+
+  const isCharacterFavorited = (characterId: number): boolean => {
+    return favoriteCharacters.some((char) => char.id === characterId);
+  };
+
   const addPlayedGame = (game: Game) => {
     if (!playedGames.find((g) => g.id === game.id)) {
       setPlayedGames([...playedGames, game]);
@@ -43,11 +63,13 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       return newReviews;
     });
   };
+
   const addWishListGame = (game: Game) => {
     if (!wishListGames.find((g) => g.id === game.id)) {
       setWishListGames([...wishListGames, game]);
     }
   };
+
   const addReview = (
     gameId: number,
     review: string,
@@ -58,6 +80,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       new Map(prev).set(gameId, { review, rating, timeToBeat })
     );
   };
+
   const removeWishListGame = (gameId: number) => {
     setWishListGames((prev) => prev.filter((g) => g.id !== gameId));
   };
@@ -71,6 +94,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const removeFavoritesGame = (gameId: number) => {
     setFavoriteGames((prev) => prev.filter((g) => g.id !== gameId));
   };
+
   return (
     <gameContext.Provider
       value={{
@@ -85,6 +109,10 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         removeFavoritesGame,
         reviews,
         addReview,
+        favoriteCharacters,
+        addFavoriteCharacter,
+        removeFavoriteCharacter,
+        isCharacterFavorited,
       }}
     >
       {children}

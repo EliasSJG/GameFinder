@@ -8,7 +8,6 @@
 
 .type-image:hover {
   transform: scale(1.05);
-  cursor: pointer;
 }
 
 .searched-holder {
@@ -20,15 +19,28 @@
 
 .character-card {
   background-color: white;
-  width: 70%;
-  height: 100%;
+  width: 20rem;
+  height: 50%;
   overflow: hidden;
-  @include flex(column, center);
+  @include flex(column, flex-start);
   @include border();
+  overflow-y: auto;
+  height: 350px;
+
   img {
-    max-width: 80%;
+    width: 50%;
     height: auto;
     object-fit: contain;
     margin-top: 1rem;
+  }
+  p {
+    color: black;
+    padding: 1rem;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  h3 {
+    margin: 1rem 0;
+    font-size: 1.5rem;
   }
 }

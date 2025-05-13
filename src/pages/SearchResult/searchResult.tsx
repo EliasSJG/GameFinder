@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { Game, Character } from "../../types/types";
 import "./_searchResult.scss";
+import Button from "../../components/button/button";
+import { useGameContext } from "../../context/gameContext";
 
 export default function SearchResultPage() {
   const location = useLocation();
@@ -13,6 +15,11 @@ export default function SearchResultPage() {
   const query = location.state?.query || "";
   const baseImgUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/";
 
+  const { addFavoriteCharacter, removeFavoriteCharacter, favoriteCharacters } =
+    useGameContext();
+
+  const isCharacterFavorited = (id: number) =>
+    favoriteCharacters.some((c) => c.id === id);
   return (
     <div>
       <h1 className="text-center">{query}</h1>
@@ -48,7 +55,7 @@ export default function SearchResultPage() {
                   <div key={character.id} className="character-card">
                     {character.mug_shot ? (
                       <img
-                        src={`https://images.igdb.com/igdb/image/upload/t_thumb/${character.mug_shot.image_id}.jpg`}
+                        src={`https://images.igdb.com/igdb/image/upload/t_720p/${character.mug_shot.image_id}.jpg`}
                         alt={character.name}
                         className="type-image"
                       />
@@ -56,6 +63,21 @@ export default function SearchResultPage() {
                       <p className="text-center">No image available</p>
                     )}
                     <h3 className="text-center">{character.name}</h3>
+                    <Button
+                      onClick={() => {
+                        if (isCharacterFavorited(character.id)) {
+                          removeFavoriteCharacter(character.id);
+                        } else {
+                          addFavoriteCharacter(character);
+                        }
+                      }}
+                      title={
+                        isCharacterFavorited(character.id)
+                          ? "Unfavorite"
+                          : "Favorite"
+                      }
+                    />
+                    <p>{character.description}</p>
                   </div>
                 ))}
               </div>

@@ -23,7 +23,7 @@ export default function Modal({ gameDetails, onClose, onSubmit }: ModalProps) {
       !review ||
       rating === "" ||
       ratingValue < 0 ||
-      ratingValue > 10 ||
+      ratingValue > 100 ||
       timeValue < 1
     ) {
       setError("Please make sure all fields are filled correctly!");
@@ -35,9 +35,19 @@ export default function Modal({ gameDetails, onClose, onSubmit }: ModalProps) {
   };
 
   const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/^0+/, "");
+    let value = e.target.value;
 
-    if (value === "" || (Number(value) >= 0 && Number(value) <= 10)) {
+    if (value === "") {
+      setRating(value);
+      return;
+    }
+
+    if (value.length > 1 && value.startsWith("0")) {
+      return;
+    }
+
+    const numberValue = Number(value);
+    if (numberValue >= 0 && numberValue <= 100 && /^\d+$/.test(value)) {
       setRating(value);
     }
   };
@@ -65,12 +75,12 @@ export default function Modal({ gameDetails, onClose, onSubmit }: ModalProps) {
         />
         <div className="number-input-div">
           <div>
-            <label>Rating (0-10): </label>
+            <label>Rating (0-100): </label>
             <input
               type="text"
               value={rating}
               onChange={handleRatingChange}
-              maxLength={2}
+              maxLength={3}
             />
           </div>
           <div>

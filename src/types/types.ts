@@ -29,6 +29,7 @@ export type Game = {
   game_localizations: number[];
   game_type: number;
   rating: number;
+  genreNames?: string[];
 };
 
 export type Character = {

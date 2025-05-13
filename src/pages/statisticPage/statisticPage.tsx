@@ -17,7 +17,7 @@ export default function StatisticPage() {
   } = useGameContext();
 
   const [selectedList, setSelectedList] = useState("played");
-  const [overlayVisible, setOverlayVisible] = useState(false);
+  const [overlay, setOverlay] = useState(false);
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
 
   const getGames = () => {
@@ -45,19 +45,56 @@ export default function StatisticPage() {
         return "";
     }
   };
+  const getAverageUserRating = () => {
+    if (reviews.size === 0) return 0;
+
+    let totalRating = 0;
+    let count = 0;
+
+    reviews.forEach((review) => {
+      if (typeof review.rating === "number") {
+        totalRating += review.rating;
+        count++;
+      }
+    });
+
+    return count === 0 ? 0 : (totalRating / count).toFixed(1);
+  };
 
   const handleClick = (list: string) => {
     setSelectedList(list);
   };
 
-  const handleMouseEnter = (gameId: number) => {
+  const handleMouseHover = (gameId: number) => {
     setSelectedGame(gameId);
-    setOverlayVisible(true);
+    setOverlay(true);
   };
 
-  const handleMouseLeave = () => {
-    setOverlayVisible(false);
+  const handleMouseLeaveUnHover = () => {
+    setOverlay(false);
     setSelectedGame(null);
+  };
+  const getTotalHours = () => {
+    let total = 0;
+    reviews.forEach((review) => {
+      total += review.timeToBeat;
+    });
+    return total;
+  };
+
+  const getAverageHours = () => {
+    if (reviews.size === 0) return 0;
+
+    return (getTotalHours() / reviews.size).toFixed(1);
+  };
+
+  const getAverageIGDBRating = () => {
+    if (playedGames.length === 0) return 0;
+    const total = playedGames.reduce(
+      (sum, game) => sum + (game.rating || 0),
+      0
+    );
+    return (total / playedGames.length).toFixed(1);
   };
 
   return (
@@ -70,11 +107,21 @@ export default function StatisticPage() {
         </div>
         <div>
           <h3>Total Hours Played</h3>
-          <h3>0</h3>
+          <h3>{getTotalHours()}</h3>
+        </div>
+
+        <div>
+          <h3>Average Hours</h3>
+          <h3>{getAverageHours()}</h3>
+        </div>
+
+        <div>
+          <h3>Average IGDB rating</h3>
+          <h3>{getAverageIGDBRating()}</h3>
         </div>
         <div>
-          <h3>Most common theme/genre</h3>
-          <h3>0</h3>
+          <h3>Average user rating</h3>
+          <h3>{getAverageUserRating()}</h3>
         </div>
       </div>
 
@@ -106,8 +153,8 @@ export default function StatisticPage() {
           <Link to={`/game/${game.id}`} key={game.id}>
             <div
               className="game-div"
-              onMouseEnter={() => handleMouseEnter(game.id)}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={() => handleMouseHover(game.id)}
+              onMouseLeave={handleMouseLeaveUnHover}
             >
               <img
                 src={game.cover?.url ? game.cover.url : "default-image.jpg"}
@@ -115,7 +162,7 @@ export default function StatisticPage() {
                 className="type-image"
               />
 
-              {overlayVisible && selectedGame === game.id && (
+              {overlay && selectedGame === game.id && (
                 <div className="overlay">
                   {reviews.has(game.id) && (
                     <div className="review-info">

@@ -1,6 +1,14 @@
 @use "../../styles/abstract/mixins" as *;
+
 .hero {
   position: relative;
   height: 90vh;
   @include flex(column, space-evenly);
+  text-align: center;
+
+  @media (max-width: 768px) {
+    .logo {
+      display: none;
+    }
+  }
 }

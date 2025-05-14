@@ -1,6 +1,7 @@
 @use "../../styles/abstract/mixins" as *;
+
 .search-bar {
-  width: 30%;
+  width: clamp(100px, 50vw, 400px);
   height: 3rem;
   position: relative;
   @include flex();
@@ -13,11 +14,17 @@
 }
 
 .search-icon {
-  height: 50%;
+  height: clamp(16px, 2vh, 24px);
   position: absolute;
   right: 1rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.search-icon:hover {
-  cursor: pointer;
+@media (max-width: 768px) {
+  .search-icon {
+    display: none;
+  }
 }

@@ -4,7 +4,7 @@ h1 {
   font-family: $heading-main;
   font-size: 10rem;
   color: #fdc500;
-
+  font-size: clamp(5rem, 9vw, 10rem);
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #000000;
 }
@@ -12,17 +12,20 @@ h1 {
 p,
 a {
   font-family: $text-main;
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 2vw, 1.4rem);
   color: white;
 }
 h2 {
   font-family: $heading-main;
-  font-size: 7.5rem;
+  font-size: clamp(5rem, 8vw, 7.5rem);
   color: #fdc500;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #000000;
   margin: 0;
 }
 h3 {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 8vw, 2.5rem);
+}
+h4 {
+  font-size: clamp(1.5rem, 2vw, 1.7rem);
 }

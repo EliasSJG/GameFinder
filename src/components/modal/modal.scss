@@ -1,4 +1,5 @@
 @use "../../styles/abstract/mixins" as *;
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -6,35 +7,101 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
   @include flex(center, center);
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: hidden; // Prevent body scrollbars
 }
 
 .modal-content {
   background-color: rgb(41, 41, 41);
-  padding: 1rem;
-  width: 80%;
-  height: 70%;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden; // Prevent horizontal scroll
   @include flex(column, center, center);
   @include border();
+  border-radius: 1rem;
+  box-sizing: border-box;
+
   h3,
   label {
     color: white;
+    text-align: center;
+  }
+
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    @include border();
+    resize: vertical;
+    box-sizing: border-box;
+  }
+
+  .number-input-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+
+    div {
+      flex: 1;
+      min-width: 45%;
+
+      label {
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        @include border();
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  .error-message {
+    color: red;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  > div:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
-textarea {
-  width: 50%;
-  height: 100px;
-  margin-bottom: 10px;
-  @include border();
-  padding: 1rem;
-}
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+  }
 
-.number-input-div {
-  @include flex(column, normal, normal);
-  input {
-    width: 100%;
-    padding: 0.5rem;
-    @include border();
+  .number-input-div {
+    flex-direction: column;
+    align-items: stretch;
+
+    div {
+      min-width: 100%;
+    }
+  }
+
+  textarea {
+    height: 120px;
   }
 }

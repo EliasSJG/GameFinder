@@ -3,7 +3,8 @@
 .games-links {
   background-color: lightgray;
   @include flex(row, space-evenly);
-  padding: 0 2rem;
+  flex-wrap: wrap;
+
   opacity: 0.7;
 
   h3 {
@@ -18,14 +19,25 @@
 
 .general-statistics {
   background-color: lightgray;
-  padding: 0 2rem;
+  padding: 1rem;
   opacity: 0.7;
   @include flex(row, space-between);
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+
   div {
-    @include flex(column, space-between);
+    @include flex(column, center);
+    min-width: 100px;
+    max-width: 160px;
+    text-align: center;
+    padding: 0.5rem;
+    padding: 0;
   }
 }
-
+.statistics {
+  color: white;
+}
 .game-div {
   position: relative;
   overflow: hidden;
@@ -34,7 +46,7 @@
   height: 100%;
 
   img.type-image {
-    width: 98%;
+    width: 98%; /* Adjust to match previous width */
     height: auto;
     display: block;
     border-radius: 0.75rem;
@@ -54,6 +66,7 @@
     @include flex(center, center);
   }
 }
+
 .review-info {
   max-height: 200px;
   overflow-y: auto;
@@ -65,8 +78,8 @@
   padding: 0 2rem;
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 3.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+  gap: 3rem;
   justify-items: center;
 }
 
@@ -74,12 +87,45 @@
   padding: 0 2rem;
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
-  gap: 7rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 3rem;
   justify-items: center;
-
-  justify-content: center;
 }
-.character-card p {
-  max-height: 300px;
+
+.character-card {
+  @include flex(column, space-between);
+  align-items: center;
+  text-align: center;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .general-statistics {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0rem;
+  }
+
+  .games-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-div {
+    max-width: 200px;
+  }
+
+  .character-card {
+    max-width: 150px;
+  }
+
+  .char-section {
+    padding: 0rem;
+  }
+
+  .games-section {
+    padding: 0rem;
+  }
 }

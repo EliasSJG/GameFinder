@@ -99,29 +99,29 @@ export default function StatisticPage() {
 
   return (
     <>
-      <h1 className="text-center">Your Statistics</h1>
+      <h3 className="text-center statistics">Your Statistics</h3>
       <div className="general-statistics">
         <div>
-          <h3>Games Played</h3>
-          <h3>{playedGames.length}</h3>
+          <h4>Games Played:</h4>
+          <h4>{playedGames.length}</h4>
         </div>
         <div>
-          <h3>Total Hours Played</h3>
-          <h3>{getTotalHours()}</h3>
-        </div>
-
-        <div>
-          <h3>Average Hours</h3>
-          <h3>{getAverageHours()}</h3>
+          <h4>Total Hours Played:</h4>
+          <h4>{getTotalHours()}</h4>
         </div>
 
         <div>
-          <h3>Average IGDB rating</h3>
-          <h3>{getAverageIGDBRating()}</h3>
+          <h4>Average Hours:</h4>
+          <h4>{getAverageHours()}</h4>
+        </div>
+
+        <div>
+          <h4>Average IGDB rating:</h4>
+          <h4>{getAverageIGDBRating()}</h4>
         </div>
         <div>
-          <h3>Average user rating</h3>
-          <h3>{getAverageUserRating()}</h3>
+          <h4>Average user rating:</h4>
+          <h4>{getAverageUserRating()}</h4>
         </div>
       </div>
 
@@ -146,7 +146,7 @@ export default function StatisticPage() {
         </h3>
       </div>
 
-      <h2 className="text-center">{getListTitle()}</h2>
+      <h3 className="text-center statistics">{getListTitle()}</h3>
 
       <div className="games-section">
         {getGames().map((game) => (
@@ -187,7 +187,7 @@ export default function StatisticPage() {
 
       {selectedList === "favorites" && favoriteCharacters.length > 0 && (
         <>
-          <h2 className="text-center">Favorite Characters</h2>{" "}
+          <h3 className="text-center statistics">Favorite Characters</h3>
           <div className="char-section">
             {favoriteCharacters.map((char) => (
               <div className="character-card" key={char.id}>

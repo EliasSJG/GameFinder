@@ -11,7 +11,7 @@
   @include flex(center, center);
   padding: 1rem;
   box-sizing: border-box;
-  overflow: hidden; // Prevent body scrollbars
+  overflow: hidden;
 }
 
 .modal-content {
@@ -21,7 +21,7 @@
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
-  overflow-x: hidden; // Prevent horizontal scroll
+  overflow-x: hidden;
   @include flex(column, center, center);
   @include border();
   border-radius: 1rem;

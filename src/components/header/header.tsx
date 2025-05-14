@@ -13,13 +13,7 @@ export default function Header() {
         </Link>
       </div>
       <SearchBar />
-      <div>
-        <img
-          className="meny"
-          src="https://img.icons8.com/ios11/512/FFFFFF/menu.png"
-          alt="Meny"
-        />
-      </div>
+
       <div>
         <Link to="/statistics">
           <img

@@ -13,6 +13,7 @@
 .searched-holder {
   @include grid();
   padding: 2rem;
+  gap: 1rem;
   justify-items: center;
   justify-content: space-evenly;
 }

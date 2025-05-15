@@ -8,84 +8,84 @@ import Modal from "../../components/modal/modal";
 import "./_detailPage.scss";
 
 export default function DetailPage() {
+  //extracts the id from the url
   const { gameId } = useParams();
+  //gets the users function and data with the context
   const {
     addPlayedGame,
     removePlayedGame,
     playedGames,
-    addFavoriteGame,
-    removeFavoritesGame,
-    favoriteGames,
+    addFaveGame,
+    removeFaveGame,
+    faveGames,
     addWishListGame,
     removeWishListGame,
-    wishListGames,
+    wishlistGames,
     addReview,
   } = useGameContext();
 
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  // creates the function to show the toast with a message and time limit before it dissapears
 
   const showToast = (message: string) => {
-    setToastMessage(message);
-    setTimeout(() => setToastMessage(null), 3000);
+    setToast(message);
+    setTimeout(() => setToast(null), 3000);
   };
 
   if (!gameId) return <div>Game Not Found</div>;
+
+  //Gets the game id and uses the hook to get the fields about the game
   const GameId = Number(gameId);
 
-  const {
-    gameDetails,
-    artworkUrl,
-    genreNames,
-    themeNames,
-    releaseDate,
-    loading,
-    cover,
-  } = usefetchGameDetails(GameId);
+  const { game, artworkUrl, genres, themes, releaseDate, loading, cover } =
+    usefetchGameDetails(GameId);
 
   if (loading) return <div>Loading...</div>;
-  if (!gameDetails) return null;
+  if (!game) return null;
 
+  //checks if the game is in the list to change the users desicion for example, unfavorite, favorite
   const isPlayed = playedGames.some((g) => g.id === GameId);
-  const isFavorite = favoriteGames.some((g) => g.id === GameId);
-  const isWishlisted = wishListGames.some((g) => g.id === GameId);
+  const isFavorite = faveGames.some((g) => g.id === GameId);
+  const isWishlisted = wishlistGames.some((g) => g.id === GameId);
 
-  const gameToToggle = {
-    ...gameDetails,
+  //creates a game object with cover info
+  const gamesCover = {
+    ...game,
     cover: {
-      id: gameDetails.cover.id,
+      id: game.cover.id,
       url: cover || "",
-      image_id: gameDetails.cover.image_id,
+      image_id: game.cover.image_id,
     },
   };
 
-  const handleToggleGameState = (
+  //handles the visual when a user clicks a button to add game to a list
+  const handleUsersVisualChoiceToggle = (
     isActive: boolean,
-    addFn: (game: typeof gameToToggle) => void,
-    removeFn: (id: number) => void,
-    addMsg: string,
-    removeMsg: string
+    addFn: (game: typeof gamesCover) => void,
+    removeFunction: (id: number) => void,
+    addMessage: string,
+    removeMessage: string
   ) => {
-    isActive ? removeFn(GameId) : addFn(gameToToggle);
-    showToast(isActive ? removeMsg : addMsg);
+    isActive ? removeFunction(GameId) : addFn(gamesCover);
+    showToast(isActive ? removeMessage : addMessage);
   };
 
-  const handleOpenReviewModal = () => {
-    setIsModalOpen(true);
+  const handleOpenModal = () => {
+    setModalOpen(true);
   };
 
-  const handleCloseReviewModal = () => {
-    setIsModalOpen(false);
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
+  //handles the the review submit and adds it to the played list and stores reviews
   const handleReviewSubmit = (review: string, rating: number, time: number) => {
-    console.log("Review Submitted:", review, rating, time);
-
-    addPlayedGame(gameToToggle);
+    addPlayedGame(gamesCover);
     addReview(GameId, review, rating, time);
-
     showToast("Added to played list with your review");
-    setIsModalOpen(false);
+    setModalOpen(false);
   };
 
   return (
@@ -93,13 +93,13 @@ export default function DetailPage() {
       <div>
         <div className="detail-hero">
           {artworkUrl ? (
-            <img className="hero-img" src={artworkUrl} alt={gameDetails.name} />
+            <img className="hero-img" src={artworkUrl} alt={game.name} />
           ) : (
             <p>No artwork available</p>
           )}
           <div className="text-hero">
-            <h3>{gameDetails.name}</h3>
-            <p>{gameDetails.summary}</p>
+            <h3>{game.name}</h3>
+            <p>{game.summary}</p>
           </div>
         </div>
 
@@ -107,9 +107,9 @@ export default function DetailPage() {
           <div className="quick-info">
             <h2>Quick Info</h2>
             <ul>
-              <li>Genre: {genreNames.join(", ") || "Not Available"}</li>
-              <li>Themes: {themeNames.join(", ") || "Not Available"}</li>
-              <li>Game rating: {Math.round(gameDetails.rating)}</li>
+              <li>Genre: {genres.join(", ") || "Not Available"}</li>
+              <li>Themes: {themes.join(", ") || "Not Available"}</li>
+              <li>Game rating: {Math.round(game.rating)}</li>
               <li>First released date: {releaseDate}</li>
             </ul>
           </div>
@@ -123,7 +123,7 @@ export default function DetailPage() {
                 }
                 onClick={() => {
                   if (isPlayed) {
-                    handleToggleGameState(
+                    handleUsersVisualChoiceToggle(
                       true,
                       addPlayedGame,
                       removePlayedGame,
@@ -131,7 +131,7 @@ export default function DetailPage() {
                       "Removed from played list"
                     );
                   } else {
-                    handleOpenReviewModal();
+                    handleOpenModal();
                   }
                 }}
               />
@@ -141,10 +141,10 @@ export default function DetailPage() {
                   isFavorite ? "Remove from favorites" : "Add to favorites"
                 }
                 onClick={() =>
-                  handleToggleGameState(
+                  handleUsersVisualChoiceToggle(
                     isFavorite,
-                    addFavoriteGame,
-                    removeFavoritesGame,
+                    addFaveGame,
+                    removeFaveGame,
                     "Added to favorites",
                     "Removed from favorites"
                   )
@@ -155,7 +155,7 @@ export default function DetailPage() {
                   isWishlisted ? "Remove from wishlist" : "Add to wishlist"
                 }
                 onClick={() =>
-                  handleToggleGameState(
+                  handleUsersVisualChoiceToggle(
                     isWishlisted,
                     addWishListGame,
                     removeWishListGame,
@@ -169,12 +169,12 @@ export default function DetailPage() {
         </div>
       </div>
 
-      {toastMessage && <Toast message={toastMessage} />}
+      {toast && <Toast message={toast} />}
 
       {isModalOpen && (
         <Modal
-          gameDetails={gameDetails}
-          onClose={handleCloseReviewModal}
+          gameDetails={game}
+          onClose={handleCloseModal}
           onSubmit={handleReviewSubmit}
         />
       )}

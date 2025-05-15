@@ -1,12 +1,12 @@
+@use "../../styles/abstract/variables" as *;
 .toast {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: $font-color-white;
+  color: $font-color-black;
   padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
   font-size: 1.25rem;
 }

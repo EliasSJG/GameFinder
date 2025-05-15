@@ -1,3 +1,10 @@
+type TokenResponse = {
+  access_token: string;
+  expires_in: number;
+  token_type: string;
+};
+
+//fetches the token
 const getAccessToken = async (): Promise<string> => {
   const tokenRes = await fetch("https://id.twitch.tv/oauth2/token", {
     method: "POST",
@@ -8,11 +15,12 @@ const getAccessToken = async (): Promise<string> => {
       grant_type: "client_credentials",
     }),
   });
-  const { access_token } = await tokenRes.json();
+  const { access_token } = (await tokenRes.json()) as TokenResponse;
   return access_token;
 };
 
-const fetchFromIGDB = async (endpoint: string, body: string) => {
+const fetchFromIGDB = async <T>(endpoint: string, body: string): Promise<T> => {
+  //sets the standard fetch used in every fetch to increase dry
   try {
     const token = await getAccessToken();
 
@@ -28,7 +36,8 @@ const fetchFromIGDB = async (endpoint: string, body: string) => {
       body,
     });
 
-    return res.json();
+    const data = (await res.json()) as T;
+    return data;
   } catch (err) {
     console.error(err);
     throw new Error("Failed to fetch data from IGDB");

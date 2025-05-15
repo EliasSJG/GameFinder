@@ -3,24 +3,24 @@
 h1 {
   font-family: $heading-main;
   font-size: 10rem;
-  color: #fdc500;
+  color: $font-main-color;
   font-size: clamp(5rem, 9vw, 10rem);
   -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #000000;
+  -webkit-text-stroke-color: $font-color-black;
 }
 
 p,
 a {
   font-family: $text-main;
   font-size: clamp(1rem, 2vw, 1.4rem);
-  color: white;
+  color: $font-color-white;
 }
 h2 {
   font-family: $heading-main;
   font-size: clamp(5rem, 8vw, 7.5rem);
-  color: #fdc500;
+  color: $font-main-color;
   -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #000000;
+  -webkit-text-stroke-color: $font-color-black;
   margin: 0;
 }
 h3 {

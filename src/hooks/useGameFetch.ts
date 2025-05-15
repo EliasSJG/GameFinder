@@ -3,76 +3,53 @@ import { Game } from "../types/types";
 import { fetchFromIGDB } from "../utilities/fetchAPI";
 
 const usefetchGameDetails = (gameId: number) => {
-  const [gameDetails, setGameDetails] = useState<Game | null>(null);
-  const [artworkUrl, setArtworkUrl] = useState<string | null>(null);
-  const [genreNames, setGenreNames] = useState<string[]>([]);
-  const [themeNames, setThemeNames] = useState<string[]>([]);
+  const [game, setGame] = useState<Game | null>(null);
+  const [artworkUrl, setArtwork] = useState<string | null>(null);
+  const [genres, setGenres] = useState<string[]>([]);
+  const [themes, setTheme] = useState<string[]>([]);
   const [cover, setCover] = useState<string | null>(null);
   const [releaseDate, setReleaseDate] = useState<string>("N/A");
   const [loading, setLoading] = useState<boolean>(true);
-
+  //the hook the fetch the details about the game user has selected
   useEffect(() => {
     const getGameDetails = async () => {
       try {
-        const gameData = await fetchFromIGDB(
+        const gameData = await fetchFromIGDB<Game[]>(
+          //the fields we use to retrieve from the api
           `/api/games`,
-          `fields *, artworks, genres, themes, game_modes, release_dates; where id = ${gameId};`
+          `fields name, summary, rating, artworks.image_id, cover.image_id, genres.name, themes.name, release_dates.date;
+           where id = ${gameId};`
         );
+        //grabs the first game from the response and stores it
         const game = gameData[0];
-        setGameDetails(game);
-
-        if (game.artworks && game.artworks.length > 0) {
-          const artworkData = await fetchFromIGDB(
-            `/api/artworks`,
-            `fields url; where id = ${game.artworks[0]};`
+        setGame(game);
+        //gets the url for the artwork
+        const artworkId: string | undefined = game.artworks?.[0]?.image_id;
+        if (artworkId) {
+          setArtwork(
+            `https://images.igdb.com/igdb/image/upload/t_1080p/${artworkId}.jpg`
           );
-          const artworkUrlFromAPI = artworkData[0]?.url;
-          if (artworkUrlFromAPI) {
-            const fullSizeUrl = artworkUrlFromAPI.replace("t_thumb", "t_1080p");
-            setArtworkUrl(`https:${fullSizeUrl}`);
-          }
         }
-
-        if (game.cover) {
-          const coverData = await fetchFromIGDB(
-            `/api/covers`,
-            `fields url; where id = ${game.cover};`
+        //gets the url for the cover
+        const coverId = game.cover?.image_id;
+        if (coverId) {
+          setCover(
+            `https://images.igdb.com/igdb/image/upload/t_cover_big/${coverId}.jpg`
           );
-          const coverUrl = coverData[0]?.url;
-          if (coverUrl) {
-            const fullCoverUrl = coverUrl.replace("t_thumb", "t_cover_big");
-            setCover(`https:${fullCoverUrl}`);
-          }
         }
+        //extracts the genre names and sets the names
+        const genres = game.genres?.map((g) => g.name) || [];
+        setGenres(genres);
 
-        if (game.genres && game.genres.length > 0) {
-          const genreData = await fetchFromIGDB(
-            `/api/genres`,
-            `fields name; where id = (${game.genres.join(",")});`
-          );
-          setGenreNames(genreData.map((g: any) => g.name));
-        }
-
-        if (game.themes && game.themes.length > 0) {
-          const themeData = await fetchFromIGDB(
-            `/api/themes`,
-            `fields name; where id = (${game.themes.join(",")});`
-          );
-          setThemeNames(themeData.map((t: any) => t.name));
-        }
-
-        if (game.release_dates && game.release_dates.length > 0) {
-          const releaseData = await fetchFromIGDB(
-            `/api/release_dates`,
-            `fields date; where id = (${game.release_dates.join(
-              ","
-            )}); sort date asc;`
-          );
-          const firstRelease = releaseData[0]?.date
-            ? new Date(releaseData[0].date * 1000).toLocaleDateString()
-            : "N/A";
-          setReleaseDate(firstRelease);
-        }
+        //extracts the theme names and sets the names
+        const themes = game.themes?.map((t) => t.name) || [];
+        setTheme(themes);
+        //formats and sets the date
+        const firstDate = game.release_dates?.[0]?.date;
+        const formattedDate = firstDate
+          ? new Date(firstDate * 1000).toLocaleDateString()
+          : "N/A";
+        setReleaseDate(formattedDate);
 
         setLoading(false);
       } catch (error) {
@@ -85,10 +62,10 @@ const usefetchGameDetails = (gameId: number) => {
   }, [gameId]);
 
   return {
-    gameDetails,
+    game,
     artworkUrl,
-    genreNames,
-    themeNames,
+    genres,
+    themes,
     releaseDate,
     loading,
     cover,

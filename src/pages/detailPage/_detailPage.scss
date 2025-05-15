@@ -1,5 +1,5 @@
 @use "../../styles/abstract/mixins" as *;
-
+@use "../../styles/abstract/variables" as *;
 .detail-hero {
   position: relative;
   height: 100vh;
@@ -29,8 +29,7 @@
 
   h3 {
     width: 100%;
-    margin: 0;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem 0;
   }
 
   @media (max-width: 1024px) {
@@ -51,11 +50,19 @@
 
 .user-experience-div {
   @include flex(column);
-  background-color: white;
+  background-color: $font-color-white;
   padding-bottom: 5rem;
   overflow: hidden;
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 58%, transparent 100%);
+  mask-image: linear-gradient(
+    to bottom,
+    $font-color-black 70%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    $font-color-black 58%,
+    transparent 100%
+  );
   border-radius: 1rem;
 }
 
@@ -72,7 +79,7 @@
     li {
       font-size: 1.6rem;
       margin: 0.8rem 0;
-      color: white;
+      color: $font-color-white;
     }
   }
 }
@@ -97,10 +104,6 @@
     padding: 10px;
   }
 
-  .detail-second-page {
-    grid-template-columns: 1fr;
-  }
-
   .quick-info {
     padding: 1rem;
 
@@ -114,7 +117,6 @@
   }
 
   .user-experience-div {
-    padding: 1rem;
     mask-image: none;
     -webkit-mask-image: none;
   }

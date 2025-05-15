@@ -5,21 +5,22 @@ import Button from "../../components/button/button";
 import { useGameContext } from "../../context/gameContext";
 
 export default function SearchResultPage() {
+  //useLocation which contains an object about the url
   const location = useLocation();
-
+  //extracts the games and character from the location state
   const { games, characters } = location.state?.results || {
     games: [],
     characters: [],
   };
-
+  //extracts the query user searched on
   const query = location.state?.query || "";
   const baseImgUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/";
 
-  const { addFavoriteCharacter, removeFavoriteCharacter, favoriteCharacters } =
-    useGameContext();
+  const { addFaveChar, removeFaveChar, faveChar } = useGameContext();
 
-  const isCharacterFavorited = (id: number) =>
-    favoriteCharacters.some((c) => c.id === id);
+  //checks if character is favorited
+  const isCharFave = (id: number) => faveChar.some((c) => c.id === id);
+
   return (
     <div>
       <h1 className="text-center">{query}</h1>
@@ -40,7 +41,7 @@ export default function SearchResultPage() {
                         : "default-image.jpg"
                     }
                     alt={game.name}
-                    className="type-image"
+                    className="game-img"
                   />
                 </Link>
               ))}
@@ -49,7 +50,7 @@ export default function SearchResultPage() {
 
           {characters.length > 0 && (
             <>
-              <h2 className="text-center">Characters</h2>
+              <h2 className="text-center seached-type">Characters</h2>
               <div className="searched-holder">
                 {characters.map((character: Character) => (
                   <div key={character.id} className="character-card">
@@ -57,7 +58,6 @@ export default function SearchResultPage() {
                       <img
                         src={`https://images.igdb.com/igdb/image/upload/t_720p/${character.mug_shot.image_id}.jpg`}
                         alt={character.name}
-                        className="type-image"
                       />
                     ) : (
                       <p className="text-center">No image available</p>
@@ -65,16 +65,14 @@ export default function SearchResultPage() {
                     <h3 className="text-center">{character.name}</h3>
                     <Button
                       onClick={() => {
-                        if (isCharacterFavorited(character.id)) {
-                          removeFavoriteCharacter(character.id);
+                        if (isCharFave(character.id)) {
+                          removeFaveChar(character.id);
                         } else {
-                          addFavoriteCharacter(character);
+                          addFaveChar(character);
                         }
                       }}
                       title={
-                        isCharacterFavorited(character.id)
-                          ? "Unfavorite"
-                          : "Favorite"
+                        isCharFave(character.id) ? "Unfavorite" : "Favorite"
                       }
                     />
                     <p>{character.description}</p>

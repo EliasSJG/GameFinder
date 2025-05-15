@@ -14,13 +14,10 @@
 }
 
 .search-icon {
-  height: clamp(16px, 2vh, 24px);
+  height: clamp(1rem, 2vh, 24px);
   position: absolute;
   right: 1rem;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {

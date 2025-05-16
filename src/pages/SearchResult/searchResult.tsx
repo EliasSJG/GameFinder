@@ -8,12 +8,14 @@ export default function SearchResultPage() {
   //useLocation which contains an object about the url
   const location = useLocation();
   //extracts the games and character from the location state
-  const { games, characters } = location.state?.results || {
-    games: [],
-    characters: [],
-  };
-  //extracts the query user searched on
-  const query = location.state?.query || "";
+
+  const { games, characters } = (location.state?.results as {
+    games: Game[];
+    characters: Character[];
+  }) || { games: [], characters: [] };
+
+  const query: string = location.state?.query || "";
+
   const baseImgUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/";
 
   const { addFaveChar, removeFaveChar, faveChar } = useGameContext();
